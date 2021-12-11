@@ -4,9 +4,10 @@ import ResourceHighlight from "components/ResoureceHighlight";
 import ResourceList from "components/ResourceList";
 import Layout from "../components/Layout";
 
-import resources from "../pages/api/data.json"
+import {useEffect} from "react";
 
-export default function Home() {
+export default function Home({resources}) {
+
     return (
         <>
             <Layout>
@@ -25,17 +26,17 @@ export default function Home() {
 
 // is called every time you wil visit the page
 // function is executed ont the server
-// export async function getServerSideProps() {
-//
-//     const resData = await fetch("http://localhost:3000/api/resources")
-//     const data = await resData.json()
-//
-//     return {
-//         props: {
-//             resources: data
-//         }
-//     }
-// }
+export async function getServerSideProps() {
+
+    const resData = await fetch("http://localhost:3001/api/resources")
+    const data = await resData.json()
+
+    return {
+        props: {
+            resources: data
+        }
+    }
+}
 
 // is called at the build time, and it's called only once
 // export async function getStaticProps() {

@@ -1,5 +1,6 @@
-import data from "./data.json"
+export default async function resources(req, res) {
+    const dataRes = await fetch("http://localhost:3001/api/resources")
+    const data = await dataRes.json()
 
-export default function resources(req, res) {
     res.send(data)
 }
