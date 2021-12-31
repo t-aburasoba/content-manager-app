@@ -16,6 +16,13 @@ const ResourceCreate = () => {
         alert(JSON.stringify(form))
     }
 
+    const handleTitleChange = (e) => {
+        setForm({
+            ...form,
+            title: e.target.value
+        })
+    }
+
     return (
         <Layout>
             <div className="container">
@@ -27,7 +34,7 @@ const ResourceCreate = () => {
                                 <div className="field">
                                     <label className="label">Title</label>
                                     <div className="control">
-                                        <input className="input" value={form.title} type="text" placeholder="Learn Next JS and Sanity IO"/>
+                                        <input className="input" onChange={handleTitleChange} value={form.title} type="text" placeholder="Learn Next JS and Sanity IO"/>
                                     </div>
                                 </div>
                                 <div className="field">
