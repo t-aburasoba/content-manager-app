@@ -35,14 +35,31 @@ app.patch("/api/resources/:id", (req, res) => {
     const resources = getResources()
     const {id} = req.params
     const index = resources.findIndex((resource) => resource.id === id)
+    const activeResource = resources.find(resource => resource.status === "active")
+
+    if (resources[index].status === "complete") {
+        return res.status(422).send("Cannot update because resource has been completed!");
+    }
 
     resources[index] = req.body
+
+    if (req.body.status === "active") {
+        resources[index].status = "active"
+        resources[index].activationTime = new Date()
+    }
+
     fs.writeFile(pathToFile, JSON.stringify(resources, null, 2), (error) => {
         if (error) {
             return res.status(422).send("Cannot store data in the file!")
         }
         return res.send("Data has been saved!")
     })
+})
+
+app.get("/api/activeresource", (req, res) => {
+    const resources = getResources()
+    const activeResource = resources.find(resource => resource.status === "active")
+    res.send(activeResource)
 })
 
 app.post("/api/resources", (req, res) => {
