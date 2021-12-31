@@ -16,11 +16,16 @@ const ResourceCreate = () => {
         alert(JSON.stringify(form))
     }
 
-    const handleTitleChange = (e) => {
+    const handleChange = (e) => {
+        const {name, value} = e.target
         setForm({
             ...form,
-            title: e.target.value
+            [name]: value
         })
+    }
+
+    const resetForm = () => {
+      setForm(DEFAULT_DATA)
     }
 
     return (
@@ -34,26 +39,26 @@ const ResourceCreate = () => {
                                 <div className="field">
                                     <label className="label">Title</label>
                                     <div className="control">
-                                        <input className="input" onChange={handleTitleChange} value={form.title} type="text" placeholder="Learn Next JS and Sanity IO"/>
+                                        <input className="input" onChange={handleChange} name="title" value={form.title} type="text" placeholder="Learn Next JS and Sanity IO"/>
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label className="label">Description</label>
                                     <div className="control">
-                                        <textarea className="textarea" value={form.description} placeholder="Learn these technologies because they are very popular and enable better SEO"></textarea>
+                                        <textarea className="textarea" onChange={handleChange} name="description" value={form.description} placeholder="Learn these technologies because they are very popular and enable better SEO"></textarea>
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label className="label">Link</label>
                                     <div className="control">
-                                        <input className="input" value={form.link} type="text" placeholder="https://aburasoba.org"/>
+                                        <input className="input" onChange={handleChange} name="link" value={form.link} type="text" placeholder="https://aburasoba.org"/>
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label className="label">Priority</label>
                                     <div className="control">
                                         <div className="select">
-                                            <select value={form.priority}>
+                                            <select value={form.priority} name="priority" onChange={handleChange}>
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
@@ -64,7 +69,7 @@ const ResourceCreate = () => {
                                 <div className="field">
                                     <label className="label">Time to finish</label>
                                     <div className="control">
-                                        <input className="input" value={form.timeToFinish} type="number" placeholder="60 (time is minutes)"/>
+                                        <input className="input" value={form.timeToFinish} name="timeToFinish" onChange={handleChange} type="number" placeholder="60 (time is minutes)"/>
                                     </div>
                                     <p className="help">Time is in minutes</p>
                                 </div>
@@ -73,7 +78,7 @@ const ResourceCreate = () => {
                                         <button className="button is-link" type="button" onClick={submitForm}>Submit</button>
                                     </div>
                                     <div className="control">
-                                        <button className="button is-link is-light">Cancel</button>
+                                        <button className="button is-link is-light" onClick={resetForm}>Reset Form</button>
                                     </div>
                                 </div>
                             </form>
