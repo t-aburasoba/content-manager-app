@@ -26,7 +26,7 @@ export default function Home({resources}) {
 // function is executed ont the server
 export async function getServerSideProps() {
 
-    const resData = await fetch("http://localhost:3001/api/resources")
+    const resData = await fetch("/api/resources")
     const data = await resData.json()
 
     return {
