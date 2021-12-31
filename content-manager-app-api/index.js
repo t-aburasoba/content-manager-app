@@ -23,6 +23,28 @@ app.get("/api/resources", (req, res) => {
     res.send(resources)
 })
 
+app.get("/api/resources/:id", (req, res) => {
+    const resources = getResources()
+    const {id} = req.params
+    const resource = resources.find((resource) => resource.id === id)
+
+    res.send(resource)
+})
+
+app.patch("/api/resources/:id", (req, res) => {
+    const resources = getResources()
+    const {id} = req.params
+    const index = resources.findIndex((resource) => resource.id === id)
+
+    resources[index] = req.body
+    fs.writeFile(pathToFile, JSON.stringify(resources, null, 2), (error) => {
+        if (error) {
+            return res.status(422).send("Cannot store data in the file!")
+        }
+        return res.send("Data has been saved!")
+    })
+})
+
 app.post("/api/resources", (req, res) => {
     const resources = getResources()
     const resource = req.body
