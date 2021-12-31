@@ -4,8 +4,6 @@ import ResourceHighlight from "components/ResoureceHighlight";
 import ResourceList from "components/ResourceList";
 import Layout from "../components/Layout";
 
-import {useEffect} from "react";
-
 export default function Home({resources}) {
 
     return (
