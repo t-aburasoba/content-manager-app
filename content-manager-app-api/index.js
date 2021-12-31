@@ -9,6 +9,8 @@ const cors = require("cors")
 
 const getResources = () => JSON.parse(fs.readFileSync(pathToFile))
 
+app.use(express.json())
+
 app.get("/", (req, res) => {
     res.send("Hello World")
     console.log("From the code")
@@ -19,6 +21,23 @@ app.get("/api/resources", (req, res) => {
     console.log(resources)
 
     res.send(resources)
+})
+
+app.post("/api/resources", (req, res) => {
+    const resources = getResources()
+    const resource = req.body
+
+    resource.createdAt = new Date()
+    resource.status = "inactive"
+    resource.id = Date.now().toString()
+    resources.unshift(resource)
+
+    fs.writeFile(pathToFile, JSON.stringify(resources, null, 2), (error) => {
+        if (error) {
+            return res.status(422).send("Cannot store data in the file!")
+        }
+        return res.send("Data has been saved!")
+    })
 })
 
 app.listen(PORT, () => {
